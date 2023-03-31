@@ -8,7 +8,7 @@ CREATE TABLE users (
                        email VARCHAR(100),
                        phone_number VARCHAR(20),
                        created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-                       updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+                       updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE main_tasks (
@@ -20,7 +20,7 @@ CREATE TABLE main_tasks (
                             manager_id INT NOT NULL,
                             FOREIGN KEY (manager_id) REFERENCES users(user_id),
                             created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-                            updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+                            updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE subtasks (
@@ -31,7 +31,7 @@ CREATE TABLE subtasks (
                           main_task_id INT NOT NULL,
                           FOREIGN KEY (main_task_id) REFERENCES main_tasks(task_id),
                           created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-                          updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+                          updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE assignments (
@@ -42,8 +42,7 @@ CREATE TABLE assignments (
                              FOREIGN KEY (main_task_id) REFERENCES main_tasks(task_id),
                              FOREIGN KEY (staff_id) REFERENCES users(user_id),
                              created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-                             updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+                             updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
-
 
 -- +migrate StatementEnd
