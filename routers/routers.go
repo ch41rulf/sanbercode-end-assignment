@@ -28,9 +28,9 @@ func StartApp() *gin.Engine {
 
 	router.GET("/subtask", controllers.GetSubTask)
 	router.Use(autenthikasi.AuthMiddleware(users))
-	router.POST("/maintask", controllers.InsertSubTask)
-	router.PUT("/maintask/:subtask_id", controllers.UpdateSubTask)
-	router.DELETE("/maintask/:subtask_id", controllers.DeleteSubTask)
+	router.POST("/subtask", controllers.InsertSubTask)
+	router.PUT("/subtask/:subtask_id", controllers.UpdateSubTask)
+	router.DELETE("/subtask/:subtask_id", controllers.DeleteSubTask)
 
 	router.GET("/assngmnt", controllers.GetAssgnmnt)
 	router.Use(autenthikasi.AuthMiddleware(users))
