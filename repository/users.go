@@ -3,6 +3,9 @@ package repository
 import (
 	"database/sql"
 	"end-assignment/structs"
+	"math/rand"
+	"strconv"
+	"time"
 )
 
 func GetUsers(db *sql.DB) (err error, results []structs.Users) {
@@ -29,12 +32,12 @@ func GetUsers(db *sql.DB) (err error, results []structs.Users) {
 }
 
 func InsertsUsers(db *sql.DB, users structs.Users) (err error) {
-	sql := "INSERT INTO users (username, password, email, phone_number, created_at) VALUES ($1, $2, $3, $4, NOW()) RETURNING user_id"
-	err = db.QueryRow(sql, users.Username, users.Password, users.Email, users.PhoneNumber).Scan(&users.UserId)
-	if err != nil {
-		return err
-	}
-	return nil
+	userID := "user_" + strconv.FormatInt(time.Now().UnixNano(), 10) + strconv.Itoa(rand.Intn(999))
+
+	sql := "INSERT INTO users (user_id, username, password, email, phone_number, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, NOW(), NOW())"
+	errs := db.QueryRow(sql, userID, users.Username, users.Password, users.Email, users.PhoneNumber)
+
+	return errs.Err()
 }
 
 func UpdateUsers(db *sql.DB, users structs.Users) (err error) {
