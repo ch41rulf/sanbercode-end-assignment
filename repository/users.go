@@ -28,10 +28,11 @@ func GetUsers(db *sql.DB) (err error, results []structs.Users) {
 
 }
 
-func InsertsUsers(db *sql.DB, users structs.Users) (userId int64, err error) {
-	sql := "INSERT INTO users (username, password, email, phone_number, created_at, updated_at) VALUES ($1, $2, $3, $4, NOW(), NOW()) RETURNING user_id"
-	err = db.QueryRow(sql, users.Username, users.Password, users.Email, users.PhoneNumber).Scan(&userId)
-	return userId, err
+func InsertsUsers(db *sql.DB, users structs.Users) error {
+	sql := "INSERT INTO users (user_id, username, password, email, phone_number, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, NOW(), NOW())"
+	userId := int64(len(users.Username) + len(users.Email))
+	_, err := db.Exec(sql, userId, users.Username, users.Password, users.Email, users.PhoneNumber)
+	return err
 }
 
 func UpdateUsers(db *sql.DB, users structs.Users) (err error) {

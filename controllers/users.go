@@ -5,6 +5,7 @@ import (
 	"end-assignment/repository"
 	"end-assignment/structs"
 	"github.com/gin-gonic/gin"
+	"log"
 	"net/http"
 	"strconv"
 )
@@ -34,16 +35,20 @@ func InsertUsers(c *gin.Context) {
 
 	err := c.ShouldBindJSON(&users)
 	if err != nil {
-		panic(err)
+		log.Println("Error binding JSON:", err)
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Invalid JSON format"})
+		return
 	}
 
-	userId, err := repository.InsertsUsers(database.DbConnection, users)
+	err = repository.InsertsUsers(database.DbConnection, users)
 	if err != nil {
-		panic(err)
+		log.Println("Error inserting user to database:", err)
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Failed to insert user"})
+		return
 	}
 
 	c.JSON(http.StatusOK, gin.H{
-		"result": "Success Insert with user_id " + strconv.FormatInt(userId, 10),
+		"result": "Success Insert ",
 	})
 }
 
