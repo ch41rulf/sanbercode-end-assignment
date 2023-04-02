@@ -17,7 +17,7 @@ func GetUsers(db *sql.DB) (err error, results []structs.Users) {
 	for rows.Next() {
 		var users = structs.Users{}
 
-		err = rows.Scan(&users.UserId, &users.Username, &users.Email, &users.PhoneNumber)
+		err = rows.Scan(&users.UserId, &users.Username, &users.Password, &users.Email, &users.PhoneNumber, &users.CreatedAt, &users.UpdatedAt)
 		if err != nil {
 			panic(err)
 		}

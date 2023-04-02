@@ -13,7 +13,7 @@ CREATE TABLE users (
 
 
 CREATE TABLE main_tasks (
-                            task_id INT PRIMARY KEY,
+                            task_id SERIAL PRIMARY KEY,
                             title VARCHAR(100) ,
                             description VARCHAR(255),
                             due_date DATE ,
@@ -25,7 +25,7 @@ CREATE TABLE main_tasks (
 );
 
 CREATE TABLE subtasks (
-                          subtask_id INT PRIMARY KEY,
+                          subtask_id SERIAL PRIMARY KEY,
                           title VARCHAR(100) ,
                           description VARCHAR(255),
                           status VARCHAR(20) ,
@@ -36,7 +36,7 @@ CREATE TABLE subtasks (
 );
 
 CREATE TABLE assignments (
-                             assignment_id INT PRIMARY KEY,
+                             assignment_id SERIAL PRIMARY KEY,
                              main_task_id INT ,
                              staff_id INT ,
                              due_date DATE ,

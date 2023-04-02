@@ -36,14 +36,14 @@ func InsertUsers(c *gin.Context) {
 	err := c.ShouldBindJSON(&users)
 	if err != nil {
 		log.Println("Error binding JSON:", err)
-		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Invalid JSON format"})
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "salah format, periksa kembali"})
 		return
 	}
 
 	err = repository.InsertsUsers(database.DbConnection, users)
 	if err != nil {
 		log.Println("Error inserting user to database:", err)
-		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Failed to insert user"})
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "gagal insert"})
 		return
 	}
 
