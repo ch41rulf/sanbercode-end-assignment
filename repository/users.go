@@ -35,12 +35,16 @@ func InsertsUsers(db *sql.DB, users structs.Users) error {
 	return err
 }
 
-func UpdateUsers(db *sql.DB, users structs.Users) (err error) {
-	sql := "UPDATE users SET password=$1, email=$2, phone_number=$3, updated_at =$4 WHERE user_id=$5"
+func UpdateUsers(db *sql.DB, users structs.Users) error {
+	sql := "UPDATE users SET username=$1, password=$2, email=$3, phone_number=$4, updated_at=NOW() WHERE user_id=$5"
 
-	errs := db.QueryRow(sql, users)
+	_, err := db.Exec(sql, users.Username, users.Password, users.Email, users.PhoneNumber, users.UserId)
 
-	return errs.Err()
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func DeleteUsers(db *sql.DB, users structs.Users) (err error) {
