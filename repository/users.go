@@ -3,9 +3,6 @@ package repository
 import (
 	"database/sql"
 	"end-assignment/structs"
-	"math/rand"
-	"strconv"
-	"time"
 )
 
 func GetUsers(db *sql.DB) (err error, results []structs.Users) {
@@ -32,7 +29,13 @@ func GetUsers(db *sql.DB) (err error, results []structs.Users) {
 }
 
 func InsertsUsers(db *sql.DB, users structs.Users) (err error) {
-	userID := "user_" + strconv.FormatInt(time.Now().UnixNano(), 10) + strconv.Itoa(rand.Intn(999))
+
+	var lastUserID int
+	err = db.QueryRow("SELECT COALESCE(MAX(user_id), 0) FROM users").Scan(&lastUserID)
+	if err != nil {
+		return err
+	}
+	userID := lastUserID + 1
 
 	sql := "INSERT INTO users (user_id, username, password, email, phone_number, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, NOW(), NOW())"
 	errs := db.QueryRow(sql, userID, users.Username, users.Password, users.Email, users.PhoneNumber)
