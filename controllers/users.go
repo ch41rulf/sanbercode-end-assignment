@@ -37,13 +37,13 @@ func InsertUsers(c *gin.Context) {
 		panic(err)
 	}
 
-	err = repository.InsertsUsers(database.DbConnection, users)
+	userId, err := repository.InsertsUsers(database.DbConnection, users)
 	if err != nil {
 		panic(err)
 	}
 
 	c.JSON(http.StatusOK, gin.H{
-		"result": "Success Insert ",
+		"result": "Success Insert with user_id " + strconv.FormatInt(userId, 10),
 	})
 }
 

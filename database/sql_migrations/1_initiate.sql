@@ -2,7 +2,7 @@
 -- +migrate StatementBegin
 
 CREATE TABLE users (
-                       user_id INT PRIMARY KEY,
+                       user_id SERIAL PRIMARY KEY,
                        username VARCHAR(50),
                        password VARCHAR(255),
                        email VARCHAR(100),
@@ -10,6 +10,7 @@ CREATE TABLE users (
                        created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
                        updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
+
 
 CREATE TABLE main_tasks (
                             task_id INT PRIMARY KEY,
