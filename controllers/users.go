@@ -54,7 +54,7 @@ func InsertUsers(c *gin.Context) {
 
 func UpdateUsers(c *gin.Context) {
 	var users structs.Users
-	id, _ := strconv.Atoi(c.Param("id"))
+	id, _ := strconv.Atoi(c.Param("user_id"))
 
 	err := c.ShouldBindJSON(&users)
 	if err != nil {
