@@ -29,14 +29,12 @@ func GetUsers(db *sql.DB) (err error, results []structs.Users) {
 }
 
 func InsertsUsers(db *sql.DB, users structs.Users) (err error) {
-
-	sql := "INSERT INTO users (username, password, email, phone_number) VALUES ($1, $2, $3, $4) RETURNING user_id"
+	sql := "INSERT INTO users (username, password, email, phone_number, created_at) VALUES ($1, $2, $3, $4, NOW()) RETURNING user_id"
 	err = db.QueryRow(sql, users.Username, users.Password, users.Email, users.PhoneNumber).Scan(&users.UserId)
 	if err != nil {
 		return err
 	}
 	return nil
-
 }
 
 func UpdateUsers(db *sql.DB, users structs.Users) (err error) {
