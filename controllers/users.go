@@ -76,7 +76,7 @@ func UpdateUsers(c *gin.Context) {
 
 func DeleteUsers(c *gin.Context) {
 	var users structs.Users
-	id, err := strconv.Atoi(c.Param("id"))
+	id, err := strconv.Atoi(c.Param("user_id"))
 
 	users.UserId = int64(id)
 
