@@ -49,8 +49,6 @@ func UpdateUsers(db *sql.DB, users structs.Users) error {
 
 func DeleteUsers(db *sql.DB, users structs.Users) (err error) {
 	sql := "DELETE FROM users WHERE user_id = $1"
-
-	errs := db.QueryRow(sql, users)
-
-	return errs.Err()
+	_, err = db.Exec(sql, users.UserId)
+	return
 }
