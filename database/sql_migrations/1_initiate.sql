@@ -1,6 +1,6 @@
 -- +migrate Up
 -- +migrate StatementBegin
-
+SET TIMEZONE='Asia/Jakarta';
 CREATE TABLE users (
                        user_id SERIAL PRIMARY KEY,
                        username VARCHAR(50),
